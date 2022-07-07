@@ -1,18 +1,27 @@
-import { Model } from 'sequelize';
+import { Model, INTEGER, BOOLEAN } from 'sequelize';
 import db from '.';
 // import OtherModel from './OtherModel';
 
-class Example extends Model {
-  // public <campo>!: <tipo>;
+// Tipagem do TypeScript
+class Match extends Model {
+  homeTeam: number;
+  homeTeamGoals: number;
+  awayTeam: number;
+  awayTeamGoals: number;
+  inProgress: boolean
 }
 
-Example.init({
-  // ... Campos
+// configuração do Sequelize
+Match.init({
+  homeTeam: INTEGER,
+  homeTeamGoals: INTEGER,
+  awayTeam: INTEGER,
+  awayTeamGoals: INTEGER,
+  inProgress: BOOLEAN
 }, {
-  // ... Outras configs
   underscored: true,
   sequelize: db,
-  // modelName: 'example',
+  modelName: 'match',
   timestamps: false,
 });
 
@@ -27,4 +36,4 @@ Example.init({
 // Example.hasMany(OtherModel, { foreignKey: 'campoC', as: 'campoEstrangeiroC' });
 // Example.hasMany(OtherModel, { foreignKey: 'campoD', as: 'campoEstrangeiroD' });
 
-export default Example;
+export default Match;

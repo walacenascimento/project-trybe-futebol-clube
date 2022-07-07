@@ -20,8 +20,8 @@ class App {
       next();
     };
 
-    this.app.use(express.json());
     this.app.use(accessControl);
+    this.app.use(express.json());
   }
 
   public start(PORT: string | number):void {
