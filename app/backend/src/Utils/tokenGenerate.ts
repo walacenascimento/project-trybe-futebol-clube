@@ -1,13 +1,14 @@
-import Jwt = require('jsonwebtoken');
+import jwt = require('jsonwebtoken');
+import IToken from '../interfaces/IToken';
 
 // const { JWT_SECRET } = process.env;
 const secret = process.env.JWT_SECRET || 'secret';
 
-const tokenGenerate = (email: string ) => {
-    const token = Jwt.sign({ data: { email} }, secret, {
-        expiresIn: '1d',
-    });
-    return token;
-};
+const jwtConfig:IToken = {
+    expiresIn: '1d',
+    algorithm: 'HS256'
+}
+
+const tokenGenerate = (payload = {}) => jwt.sign({ data: payload }, secret, jwtConfig)
 
 export default tokenGenerate;
