@@ -9,7 +9,7 @@ class Team extends Model {
 
 // Configuração do Sequelize
 Team.init({
-  teamName: STRING
+  teamName: STRING,
 }, {
   underscored: true,
   sequelize: db,
@@ -18,7 +18,7 @@ Team.init({
 });
 
 /**
-  * `Workaround` para aplicar as associations em TS: 
+  * `Workaround` para aplicar as associations em TS:
   * Associations 1:N devem ficar em uma das instâncias de modelo
   * */
 

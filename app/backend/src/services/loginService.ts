@@ -1,27 +1,67 @@
 import * as bcrypt from 'bcryptjs';
 import User from '../database/models/user';
-import IUser from '../interfaces/IUsers';
-import tokenGenerate from '../Utils/tokenGenerate';
+import tokenGenerate from '../auth/authToken';
 
-export default class loginService {
-  login = async (user: IUser) => {
-    const { email, password } = user;
-    const users = await User.findOne({ where: { email } });
-    // if (postUsers) {
-    //   const token = tokenGenerate(email);
-    //   return { token };
-    // }
-    // throw Error('Incorrect email or password');
-    if (!users) {
-      throw new Error('Incorrect email or password');
-    }
-    const bcryptCompare = bcrypt.compareSync(password, users.password);
-    if (!bcryptCompare) {
-      throw new Error('Incorrect passowrd');
-    }
+const loginService = async (email: string, password: string) => {
+  const user = await User.findOne({ where: { email } });
+  console.log(user);
+  if (!user || (bcrypt.compareSync(password, user.password)) === false) {
+    return { message: 'Incorrect email or password' };
+  }
+  const payload = { username: user.username, role: user.role, email: user.email };
+  const token = tokenGenerate.tokenGenerate({ user });
+  return { user: payload, token };
+};
 
-    const token = tokenGenerate({ id: users.id, email });
-    // const { id, userName, role } = users;
-    return token;
-  };
-}
+export default loginService;
+
+// -----------------------------------------------
+// import User from '../database/models/user';
+// import IUser from '../interfaces/IUsers';
+// import { tokenGenerate, tokenVerifi } from '../auth/tokenGenerate';
+// // import validToken from '../middlewares/validToken';
+// import passwordCompare from '../auth/passwordBcrypt';
+
+// class LoginService {
+//   // constructor(private models = new User()) {}
+//   constructor(private models = User) {
+//     this.models = User;
+//   }
+
+//   loginServ = async (email: string, password: string): Promise<IUser | null> => {
+//     const user = await User.findOne({ where: { email } });
+
+//     if (!user) {
+//       throw new Error('All fields must be filled');
+//     }
+
+//     const passoword = passwordCompare(password, user.password);
+//     if (!passoword) {
+//       throw new Error('Incorrect passowrd');
+//     }
+
+//     const token = tokenGenerate({ data: { role: user.role, id: user.id } });
+//     // const { id, userName, role } = users;
+//     return {
+//       user: {
+//         id: user.id,
+//         userName: user.username,
+//         email: user.email,
+//         role: user.role,
+//       },
+//       token,
+//     };
+//   };
+
+//   validServ = async (token: string): Promise<string | null> => {
+//     if (!token) throw new Error('Token not found ');
+//     const data = tokenVerifi(token);
+//     const user = await User.findOne({ where: { id: data } });
+//     if (!user) return null;
+
+//     const loginUser = user.role;
+//     return loginUser;
+//   };
+// }
+
+// export default new LoginService();
