@@ -19,7 +19,6 @@ const authLoginCont = async (req: Request, res: Response) => {
   }
   try {
     const token = authToken.tokenVerifi(authorization) as IPayloadToken;
-    // console.log(token);
     const { role } = token.user;
     return res.status(200).json(role);
   } catch (error) {
