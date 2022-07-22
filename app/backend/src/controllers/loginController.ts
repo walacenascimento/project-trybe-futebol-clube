@@ -20,7 +20,7 @@ const authLoginCont = async (req: Request, res: Response) => {
   try {
     const token = authToken.tokenVerifi(authorization) as IPayloadToken;
     const { role } = token.user;
-    return res.status(200).json(role);
+    return res.status(200).json({ role });
   } catch (error) {
     return res.status(401).json({ message: 'Token Invalid!' });
   }
