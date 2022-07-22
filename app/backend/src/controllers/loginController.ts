@@ -3,11 +3,6 @@ import loginService from '../services/loginService';
 import authToken from '../auth/authToken';
 import IPayloadToken from '../interfaces/IPayloadToken';
 
-// class LoginController {
-// }
-
-// export default LoginController;
-
 const loginCont = async (req: Request, res: Response) => {
   const { email, password } = req.body;
   const user = await loginService(email, password);
@@ -22,9 +17,14 @@ const authLoginCont = async (req: Request, res: Response) => {
   if (!authorization) {
     return res.status(401).json({ message: 'Incorrect email or password' });
   }
-  const token = authToken.tokenVerifi(authorization) as IPayloadToken;
-  const { role } = token.user;
-  return res.status(200).json(role);
+  try {
+    const token = authToken.tokenVerifi(authorization) as IPayloadToken;
+    // console.log(token);
+    const { role } = token.user;
+    return res.status(200).json(role);
+  } catch (error) {
+    return res.status(401).json({ message: 'Token Invalid!' });
+  }
 };
 
 export default { loginCont, authLoginCont };

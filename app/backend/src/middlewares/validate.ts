@@ -9,4 +9,4 @@ const validLogin = (req:Request, res: Response, next: NextFunction) => {
   next();
 };
 
-export default validLogin;
+export default { validLogin };

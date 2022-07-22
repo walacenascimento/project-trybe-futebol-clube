@@ -9,3 +9,5 @@ const error = (err: Error, req: Request, res: Response, _next: NextFunction) => 
 };
 
 export default error;
+
+// Referência : https://www.becomebetterprogrammer.com/how-to-use-error-handler-middleware-with-express-js-and-typescript/

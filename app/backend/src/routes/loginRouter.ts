@@ -1,9 +1,10 @@
 import * as express from 'express';
 import loginRouter from '../controllers/loginController';
+import loginValid from '../middlewares/validate';
 
-const userRouter = express.Router();
-// const loginController = new LoginController();
+const login = express.Router();
 
-userRouter.post('/', loginRouter.loginCont);
+login.post('/', loginValid.validLogin, loginRouter.loginCont);
+login.get('/', loginRouter.authLoginCont);
 
-export default userRouter;
+export default login;
