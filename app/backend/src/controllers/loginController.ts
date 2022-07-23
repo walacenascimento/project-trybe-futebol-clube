@@ -2,14 +2,22 @@ import { Request, Response } from 'express';
 import loginService from '../services/loginService';
 import authToken from '../auth/authToken';
 import IPayloadToken from '../interfaces/IPayloadToken';
+import ThrowError from '../utils/throwError';
 
 const loginCont = async (req: Request, res: Response) => {
   const { email, password } = req.body;
   const user = await loginService(email, password);
-  if (!user) {
-    return res.status(401).json({ message: 'Incorrect email or password' });
+  console.log(user);
+  try {
+    return res.status(200).json(user);
+  } catch (error) {
+    const { status, message } = error as ThrowError;
+    return res.status(status).json({ message });
   }
-  return res.status(200).json(user);
+  // if (!user) {
+  //   return res.status(401).json({ message: 'Incorrect email or password' });
+  // }
+  // return res.status(200).json(user);
 };
 
 const authLoginCont = async (req: Request, res: Response) => {
