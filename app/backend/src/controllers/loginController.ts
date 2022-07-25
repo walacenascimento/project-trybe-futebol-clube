@@ -1,37 +1,32 @@
 import { Request, Response } from 'express';
-import loginService from '../services/loginService';
-import authToken from '../auth/authToken';
-import IPayloadToken from '../interfaces/IPayloadToken';
-import ThrowError from '../utils/throwError';
+import LoginService from '../services/userService';
+// import authToken from '../auth/authToken';
+// import IPayloadToken from '../interfaces/IPayloadToken';
+// import ThrowError from '../utils/throwError';
 
 const loginCont = async (req: Request, res: Response) => {
-  const { email, password } = req.body;
-  const user = await loginService(email, password);
-  console.log(user);
   try {
-    return res.status(200).json(user);
-  } catch (error) {
-    const { status, message } = error as ThrowError;
-    return res.status(status).json({ message });
-  }
-  // if (!user) {
-  //   return res.status(401).json({ message: 'Incorrect email or password' });
-  // }
-  // return res.status(200).json(user);
-};
+    const { email, password } = req.body;
+    const token = await LoginService(email, password);
 
-const authLoginCont = async (req: Request, res: Response) => {
-  const { authorization } = req.headers;
-  if (!authorization) {
+    return res.status(200).json({ token });
+  } catch (error) {
     return res.status(401).json({ message: 'Incorrect email or password' });
   }
-  try {
-    const token = authToken.tokenVerifi(authorization) as IPayloadToken;
-    const { role } = token.user;
-    return res.status(200).json({ role });
-  } catch (error) {
-    return res.status(401).json({ message: 'Token Invalid!' });
-  }
+
+  // const user = await loginService(req.body);
+  // if (!user.token) {
+  //   return res.status(401).json({ message: 'Incorrect email or password' });
+  // }
+  // return res.status(200).json({ token: user.token });
+  // ----- Esse aqui está passando corretamente!
+
+  // const { email, password } = req.body;
+  // const token = await loginService(email, password);
+  // if (!token) {
+  //   return res.status(401).json({ message: 'Incorrect email or password' });
+  // }
+  // return res.status(200).json(token);
 };
 
-export default { loginCont, authLoginCont };
+export default { loginCont };

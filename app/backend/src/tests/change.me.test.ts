@@ -51,7 +51,7 @@ describe(' Testa a sessão Login', () => {
        .send(loginCorreto)
 
     expect(chaiHttpResponse.status).to.be.equal(200);
-    expect(chaiHttpResponse.body).to.have.property('user');
+    expect(chaiHttpResponse.body).to.have.property('token');
     expect(chaiHttpResponse.body).to.have.property('token');
   });
 
@@ -75,7 +75,7 @@ describe(' Testa a sessão Login', () => {
 
     chaiHttpResponse = await chai.request(app).get('/login/validate').set('authorization', tokenFake)
     expect(chaiHttpResponse.status).to.be.equal(200);
-    expect(chaiHttpResponse.text).to.be.equal('"admin"');
+    expect(chaiHttpResponse.text).to.be.equal('{"role":"admin"}');
   });
 
   it('Testa se o token é inválido , caso esteja incoreto, não retornara o role', async () => {
