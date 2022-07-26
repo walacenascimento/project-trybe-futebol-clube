@@ -5,12 +5,12 @@ import Routes from './routes';
 
 class App {
   public app: express.Express;
-  public routes = Routes;
+  public routes = Routes; // mexi aqui
 
   constructor() {
     this.app = express();
     this.config();
-    this.routes(this.app);
+    this.routes(this.app); // mexi aqui
 
     // Não remover essa rota
     this.app.get('/', (req, res) => res.json({ ok: true }));
