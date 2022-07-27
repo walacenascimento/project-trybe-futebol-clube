@@ -30,7 +30,13 @@ const matchInProgressService = async (inProgress: string) => {
   return matches;
 };
 
-const postMatchService = async (match: IMatch) => {
+const matchFinishService = async (id: number) => {
+  const finish = await Match.update({ inProgress: false }, { where: { id } });
+  console.log(finish);
+  // return finish;
+};
+
+const matchPostService = async (match: IMatch) => {
   const home = await Team.findByPk(match.homeTeam);
   const away = await Team.findByPk(match.awayTeam);
 
@@ -39,4 +45,4 @@ const postMatchService = async (match: IMatch) => {
   return postMatch;
 };
 
-export default { matchService, matchInProgressService, postMatchService };
+export default { matchService, matchInProgressService, matchPostService, matchFinishService };

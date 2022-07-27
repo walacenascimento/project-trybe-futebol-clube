@@ -20,7 +20,9 @@ const Routes = (app: App) => {
   app.get('/teams/:id', controller.getTeamById);
 
   // Rotas de matechs
-  app.use('/matches', matches.getMatchCont);
+  app.get('/matches', matches.getMatch);
+  app.post('/matches', matches.postMatch);
+  app.patch('/matches/:id/finish', matches.patchMatch);
 
   // login.post('/login', loginValid.validLogin, loginRouter.loginCont);
   // login.get('/login/validate', authLoginCont);
