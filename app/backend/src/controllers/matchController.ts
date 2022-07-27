@@ -24,13 +24,23 @@ const postMatch = async (req: Request, res: Response) => {
       message: 'It is not possible to create a match with two equal teams',
     });
   }
-  const match = await service.matchPostService(
-    { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals },
-  );
-  if (typeof match === 'string') {
+
+  try {
+    const match = await service.matchPostService(
+      { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals },
+    );
+    return res.status(201).json(match);
+  } catch (error) {
     return res.status(404).json({ message: 'There is no team with such id!' });
   }
-  return res.status(201).json(match);
+
+  // const match = await service.matchPostService(
+  //   { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals },
+  // );
+  // if (typeof match === 'string') {
+  //   return res.status(404).json({ message: 'There is no team with such id!' });
+  // }
+  // return res.status(201).json(match);
 };
 
 export default { getMatch, postMatch, patchMatch };
