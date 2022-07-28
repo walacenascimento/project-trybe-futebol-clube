@@ -23,6 +23,7 @@ const postMatch = async (req: Request, res: Response) => {
     return res.status(401).json({
       message: 'It is not possible to create a match with two equal teams',
     });
+    // return res.status(401).json({ message: 'Token must be a valid token' });
   }
 
   try {
@@ -43,4 +44,14 @@ const postMatch = async (req: Request, res: Response) => {
   // return res.status(201).json(match);
 };
 
-export default { getMatch, postMatch, patchMatch };
+const patchMatchId = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { homeTeamGoals, awayTeamGoals } = req.body;
+  await service.matchPutIdService({
+    homeTeamGoals: parseInt(homeTeamGoals, 10),
+    awayTeamGoals: parseInt(awayTeamGoals, 10),
+  }, parseInt(id, 10));
+  res.status(200).json({ message: 'Update ok' });
+};
+
+export default { getMatch, postMatch, patchMatch, patchMatchId };
