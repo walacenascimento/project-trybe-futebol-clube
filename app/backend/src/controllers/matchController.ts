@@ -18,18 +18,19 @@ const patchMatch = async (req: Request, res: Response) => {
 };
 
 const postMatch = async (req: Request, res: Response) => {
-  const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals } = req.body;
-  if (homeTeam === awayTeam) {
-    return res.status(401).json({
-      message: 'It is not possible to create a match with two equal teams',
-    });
-  }
-
   try {
+    const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals } = req.body;
+    if (homeTeam === awayTeam) {
+      return res.status(401).json({
+        message: 'It is not possible to create a match with two equal teams',
+      });
+    }
+
     const match = await service.matchPostService(
       { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals },
     );
-    if (typeof match === 'string') {
+    console.log(match);
+    if (typeof match === 'number') {
       return res.status(401).json({ message: 'Token must be a valid token' });
     }
 
