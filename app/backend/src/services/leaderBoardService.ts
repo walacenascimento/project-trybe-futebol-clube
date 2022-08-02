@@ -41,12 +41,56 @@ WHERE in_progress = 0
 GROUP BY T.team_name) AS T1) AS T2
 ORDER BY totalPoints DESC, totalVictories DESC, goalsBalance DESC, goalsOwn DESC`;
 
+const awayTeam = `SELECT
+name, 
+  totalGames, 
+  totalVictories, 
+  totalLosses, 
+  totalDraws, 
+  goalsFavor, 
+  goalsOwn,
+  goalsBalance,
+  totalPoints,
+  CAST(CAST((totalPoints/(totalGames * 3) * 100) AS DECIMAL(10,2)) AS float) AS efficiency
+FROM (
+SELECT
+name, 
+  totalGames, 
+  totalVictories, 
+  totalLosses, 
+  totalDraws, 
+  goalsFavor, 
+  goalsOwn,
+  goalsFavor - goalsOwn AS goalsBalance,
+  (totalVictories * 3) + (totalDraws) AS totalPoints
+FROM (
+SELECT 
+T.team_name AS name,
+COUNT(*) AS totalGames,
+  SUM(CASE WHEN M.home_team_goals < M.away_team_goals THEN 1 ELSE 0 END) AS totalVictories,
+  SUM(CASE WHEN M.home_team_goals > M.away_team_goals THEN 1 ELSE 0 END) AS totalLosses,
+  SUM(CASE WHEN M.home_team_goals = M.away_team_goals THEN 1 ELSE 0 END) AS totalDraws,
+  SUM(M.home_team_goals) AS goalsOwn,
+  SUM(M.away_team_goals) AS goalsFavor
+FROM TRYBE_FUTEBOL_CLUBE.matches AS M
+INNER JOIN
+TRYBE_FUTEBOL_CLUBE.teams AS T
+ON M.away_team = T.id
+WHERE in_progress = 0
+GROUP BY T.team_name) AS T1) AS T2
+ORDER BY totalPoints DESC, totalVictories DESC, goalsBalance DESC, goalsOwn DESC`;
+
 const leaderboardHomeService = async () => {
   const [leaderboard] = await sequelize.query(homeTeam);
   console.log(leaderboard);
   return leaderboard;
 };
 
+const leaderboardAwayService = async () => {
+  const [leaderboard] = await sequelize.query(awayTeam);
+  return leaderboard;
+};
+
 export default {
-  leaderboardHomeService,
+  leaderboardHomeService, leaderboardAwayService,
 };
