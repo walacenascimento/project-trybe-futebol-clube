@@ -28,6 +28,7 @@ const Routes = (app: App) => {
 
   // Rotas de leaderBoard
   app.get('/leaderboard/home', leaderboard.leaderboardHomeCont);
+  app.get('/leaderboard/away', leaderboard.leaderboardAwayCont);
 
   // login.post('/login', loginValid.validLogin, loginRouter.loginCont);
   // login.get('/login/validate', authLoginCont);

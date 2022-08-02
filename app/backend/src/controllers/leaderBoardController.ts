@@ -10,6 +10,15 @@ const leaderboardHomeCont = async (req: Request, res: Response) => {
   }
 };
 
+const leaderboardAwayCont = async (req: Request, res: Response) => {
+  try {
+    const leaderboardAway = await leaderboard.leaderboardAwayService();
+    return res.status(200).json(leaderboardAway);
+  } catch (error) {
+    return res.status(500).json({ message: 'Internal error' });
+  }
+};
+
 export default {
-  leaderboardHomeCont,
+  leaderboardHomeCont, leaderboardAwayCont,
 };
