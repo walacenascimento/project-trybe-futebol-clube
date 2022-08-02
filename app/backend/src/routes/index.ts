@@ -7,6 +7,7 @@ import authLogin from '../middlewares/authLoginMidlleware';
 import loginRouter from '../controllers/loginController'; // mudar o nome no import
 import controller from '../controllers/teamsController'; // mudar o nome no import
 import matches from '../controllers/matchController';
+import leaderboard from '../controllers/leaderBoardController';
 
 const Routes = (app: App) => {
   // const login = express.Router();
@@ -24,6 +25,9 @@ const Routes = (app: App) => {
   app.post('/matches', authLogin.authTokenMatch, matches.postMatch);
   app.patch('/matches/:id/finish', matches.patchMatch);
   app.patch('/matches/:id', matches.patchMatchId);
+
+  // Rotas de leaderBoard
+  app.get('/leaderboard/home', leaderboard.leaderboardHomeCont);
 
   // login.post('/login', loginValid.validLogin, loginRouter.loginCont);
   // login.get('/login/validate', authLoginCont);

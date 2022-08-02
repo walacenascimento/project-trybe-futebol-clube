@@ -4,6 +4,7 @@ import db from '.';
 
 // Tipagem do TypeScript
 class Match extends Model {
+  id!: number;
   homeTeam: number;
   homeTeamGoals: number;
   awayTeam: number;
