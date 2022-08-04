@@ -8,7 +8,7 @@ const getTeamsCont = async (req: Request, res: Response) => {
 
 const getTeamById = async (req: Request, res: Response) => {
   const { id } = req.params;
-  console.log(id);
+  // console.log(id);
   const team = await service.teamServiceById(parseInt(id, 10));
   return res.status(200).json(team);
 };

@@ -14,11 +14,11 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('Testes do Leaderboard', () => {
+describe('Testa a seção de Leaderboard', () => {
 
     let chaiHttpResponse: Response;
   
-    describe('Leaderboard Home', () => {
+    describe('1-Testa a leaderboard Home', () => {
       before(async () => {
         sinon
           .stub(Sequelize, "query")
@@ -29,7 +29,7 @@ describe('Testes do Leaderboard', () => {
         (Sequelize.query as sinon.SinonStub).restore();
       })
     
-      it('Retorna leaderboard home', async () => {
+      it('Testa se retorna leaderboard home', async () => {
         chaiHttpResponse = await chai.request(app).get('/leaderboard/home');
   
         expect(chaiHttpResponse.status).to.be.equal(200);
@@ -38,7 +38,7 @@ describe('Testes do Leaderboard', () => {
       });
     })
   
-    describe('Leaderboard Away', () => {
+    describe('2-Testa a leaderboard Away', () => {
       before(async () => {
         sinon
           .stub(Sequelize, "query")
@@ -49,7 +49,7 @@ describe('Testes do Leaderboard', () => {
         (Sequelize.query as sinon.SinonStub).restore();
       })
     
-      it('Retorna leaderboard away', async () => {
+      it('Testa se retorna a leaderboard away', async () => {
         chaiHttpResponse = await chai.request(app).get('/leaderboard/away');
   
         expect(chaiHttpResponse.status).to.be.equal(200);

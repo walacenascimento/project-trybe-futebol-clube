@@ -6,6 +6,7 @@ import chaiHttp = require('chai-http');
 
 import { app } from '../app';
 import Match from '../database/models/match';
+import Team from '../database/models/team';
 import { Response } from 'superagent';
 // import { send } from 'process';
 import { matches } from './utils';
@@ -14,11 +15,21 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe(' Testa a sessão Matches', () => {
+describe(' Testa a seção Matches', () => {
 
   let chaiHttpResponse: Response;
 
-  describe('1-Testa se retornará todas as partidas', () => {
+  describe('1-Testa a função PostMatch do Controller', () => {
+    it('Testa se o valor de homeTeam e igual ao valor de awayTeam', async () => {
+      chaiHttpResponse = await chai.request(app).post('/matches').send({
+        homeTeam: 1, awayTeam: 1, homeTeamGoals: 1, awayTeamGoals: 2
+      });
+      expect(chaiHttpResponse.status).to.be.equal(401);
+      expect(chaiHttpResponse.body.message).to.be.equal('Incorrect email or password');
+    })
+  }) 
+
+  describe('2-Testa se retorna todas as partidas', () => {
     before( async () => {
         sinon.stub(Match, 'findAll').resolves(matches as any)
     });
@@ -32,7 +43,7 @@ describe(' Testa a sessão Matches', () => {
     });
   });
 
-  describe('2-Retorna todas as partidas finalizadas', () => {
+  describe('3-Testa se retorna todas as partidas finalizadas', () => {
     before( async () => {
         sinon.stub(Match, 'findAll').resolves(matches[1] as any);
     });
@@ -47,7 +58,7 @@ describe(' Testa a sessão Matches', () => {
     });
   });
 
-  describe('Retorna todas as partidas em andamento', () => {
+  describe('4-Testa se retorna todas as partidas em andamento', () => {
     before(async () => {
         sinon.stub(Match, "findAll").resolves(matches[40] as any);
     });
@@ -62,7 +73,7 @@ describe(' Testa a sessão Matches', () => {
     });
   })
 
-  describe('Finaliza uma partida', () => {
+  describe('5- Testa se finalizará uma partida', () => {
     before(async () => {
         sinon.stub(Match, "update").resolves(undefined);
     });

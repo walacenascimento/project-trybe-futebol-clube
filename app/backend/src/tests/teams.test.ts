@@ -14,11 +14,11 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('Testa as rotas de  /teams e /teams/:id', () => {
+describe('Testa a seção de rotas de /teams e /teams/:id', () => {
 
     let chaiHttpResponse: Response;
   
-    describe('Retornos bem sucedidos', () => {
+    describe('1-Testa se o retorno foi bem sucedidos', () => {
       before(async () => {
         sinon.stub(Team, "findAll").resolves(teams as any);
     
@@ -46,7 +46,7 @@ describe('Testa as rotas de  /teams e /teams/:id', () => {
       });
     })
   
-    describe('O time não existe', () => {
+    describe('2- Testa se time não existe', () => {
   
       before(async () => {
         sinon.stub(Team, 'findByPk').resolves(null);
