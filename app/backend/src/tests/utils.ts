@@ -13,11 +13,6 @@
     password: 'secret_admin',
   }
 
-//  export const loginSenhaIncorreta = {
-//     email: 'admin@admin.com',
-//     password: 'senha_incorreta',
-//   }
-
  export const loginEmailIncorreto = {
     email: 'admin@admin.',
     password: 'secret_admin',

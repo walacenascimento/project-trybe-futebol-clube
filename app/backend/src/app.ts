@@ -1,16 +1,14 @@
 import * as express from 'express';
-// import login from './routes/loginRouter';
 import Routes from './routes';
-// import error from './middlewares/error';
 
 class App {
   public app: express.Express;
-  public routes = Routes; // mexi aqui
+  public routes = Routes;
 
   constructor() {
     this.app = express();
     this.config();
-    this.routes(this.app); // mexi aqui
+    this.routes(this.app);
 
     // Não remover essa rota
     this.app.get('/', (req, res) => res.json({ ok: true }));
@@ -26,9 +24,6 @@ class App {
 
     this.app.use(accessControl);
     this.app.use(express.json());
-    // this.app.use(login);
-    // this.app.use('/', login);
-    // this.app.use(error);
   }
 
   public start(PORT: string | number):void {

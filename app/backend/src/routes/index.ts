@@ -10,8 +10,6 @@ import matches from '../controllers/matchController';
 import leaderboard from '../controllers/leaderBoardController';
 
 const Routes = (app: App) => {
-  // const login = express.Router();
-
   // Rotas de user
   app.post('/login', loginValid.validLogin, loginRouter.loginCont);
   app.get('/login/validate', authLogin.authLoginCont);
@@ -30,15 +28,7 @@ const Routes = (app: App) => {
   app.get('/leaderboard/home', leaderboard.leaderboardHomeCont);
   app.get('/leaderboard/away', leaderboard.leaderboardAwayCont);
 
-  // login.post('/login', loginValid.validLogin, loginRouter.loginCont);
-  // login.get('/login/validate', authLoginCont);
-
-  // login.post('/login', loginRouter.loginCont);
-  // login.get('/login/validate', loginValid.validLogin, authLoginCont);
-
   app.use(error);
-
-  // export default login;
 };
 
 export default Routes;

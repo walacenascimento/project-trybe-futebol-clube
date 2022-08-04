@@ -32,7 +32,7 @@ const matchInProgressService = async (inProgress: string) => {
 
 const matchFinishService = async (id: number) => {
   const finish = await Match.update({ inProgress: false }, { where: { id } });
-  // console.log(finish);
+
   return finish;
 };
 

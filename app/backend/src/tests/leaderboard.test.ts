@@ -7,7 +7,7 @@ import chaiHttp = require('chai-http');
 import { app } from '../app';
 import Sequelize from '../database/models';
 import { Response } from 'superagent';
-// import { send } from 'process';
+
 import { leaderboardHome, leaderboardAway } from './utils';
 
 chai.use(chaiHttp);

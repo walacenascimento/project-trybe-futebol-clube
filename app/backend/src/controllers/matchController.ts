@@ -29,10 +29,6 @@ const postMatch = async (req: Request, res: Response) => {
     const match = await service.matchPostService(
       { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals },
     );
-    // console.log(match);
-    // if (typeof match === 'number') {
-    //   return res.status(401).json({ message: 'Token must be a valid token' });
-    // }
 
     return res.status(201).json(match);
   } catch (error) {

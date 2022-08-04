@@ -23,8 +23,7 @@ const authTokenMatch = async (req: Request, res: Response, next: NextFunction) =
       return res.status(401).json({ message: 'Incorrect email or password' });
     }
     authToken.tokenVerifi(authorization) as IPayloadToken;
-    // const { role } = token.user;
-    // return res.status(200).json({ role });
+
     next();
   } catch (error) {
     return res.status(401).json({ message: 'Token must be a valid token' });

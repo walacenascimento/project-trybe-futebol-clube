@@ -8,7 +8,7 @@ import { app } from '../app';
 import Match from '../database/models/match';
 import Team from '../database/models/team';
 import { Response } from 'superagent';
-// import { send } from 'process';
+
 import { matches } from './utils';
 
 chai.use(chaiHttp);

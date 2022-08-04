@@ -82,7 +82,7 @@ ORDER BY totalPoints DESC, totalVictories DESC, goalsBalance DESC, goalsOwn DESC
 
 const leaderboardHomeService = async () => {
   const [leaderboard] = await sequelize.query(homeTeam);
-  // console.log(leaderboard);
+
   return leaderboard;
 };
 

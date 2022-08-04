@@ -1,6 +1,5 @@
 import { Model, STRING } from 'sequelize';
 import db from '.';
-// import OtherModel from './OtherModel';
 
 // Tipagem do TypeScript
 class User extends Model {

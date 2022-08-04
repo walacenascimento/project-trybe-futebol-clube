@@ -13,14 +13,6 @@ const loginService = async (email: string, password: string) => {
   }
   const token = tokenGenerate.tokenGenerate({ user });
   return token;
-
-  // if (!users || (bcrypt.compareSync(password, user.password)) === false) {
-  //   // throw throwError;
-  //   return { message: 'Incorrect email or password / A mensagem vem do loginService ' };
-  // }
-  // const payload = { username: user.username, role: user.role, email: user.email };
-  // const token = tokenGenerate.tokenGenerate({ user });
-  // return { token };
 };
 
 export default loginService;

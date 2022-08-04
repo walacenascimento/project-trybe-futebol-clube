@@ -1,6 +1,4 @@
 import { SignOptions, sign, verify } from 'jsonwebtoken';
-// import jwt = require('jsonwebtoken');
-// import { readFileSync } from 'fs';
 
 const jwtConfig: SignOptions = {
   expiresIn: '7d',
